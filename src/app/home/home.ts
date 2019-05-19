@@ -9,9 +9,9 @@ import { ToastController } from '@ionic/angular';
 export class HomePage {
   constructor(public toastCtrl: ToastController) {}
 
-  async toast() {
+  async toast(msg: string) {
     const toast = await this.toastCtrl.create({
-      message: 'Toast!',
+      message: msg,
       duration: 2000
     });
     toast.present();
