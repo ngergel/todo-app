@@ -7,13 +7,72 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['home.scss'],
 })
 export class HomePage {
-  constructor(public toastCtrl: ToastController) {}
+  tasks: Task[];
+  reorder: boolean;
 
+  constructor(public toastCtrl: ToastController) {
+    this.tasks = [
+      new Task('Task 1', 'Really cool description.'),
+      new Task('Task 2'),
+      new Task('Task 3 really really really long title', 'Short description.'),
+      new Task('Task 4', 'Really really really really long and super descriptive description.')
+    ];
+
+    this.reorder = false;
+  }
+
+  // Toast popup for testing.
+  // @params msg: Message to write in the toast.
   async toast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 2000
     });
     toast.present();
+  }
+
+  // Delete a task from the list of tasks.
+  // @params index: Index of the task in the array.
+  deleteTask(index): void {
+    this.tasks.splice(index, 1);
+  }
+
+  // Toggle reorder tasks mode.
+  toggleReorder(): void {
+    this.reorder = !this.reorder;
+  }
+
+  // Save item reordering.
+  // @params event: ionItemReorder event.
+  reorderItems(event) {
+    let draggedItem = this.tasks.splice(event.detail.from, 1)[0];
+    this.tasks.splice(event.detail.to, 0, draggedItem);
+    event.detail.complete();
+  }
+}
+
+class Task {
+  showDesc: boolean;
+  checked: boolean;
+  title: string;
+  desc: string;
+
+  constructor(title: string, desc?: string) {
+    this.showDesc = false;
+    this.checked = false;
+    this.title = title;
+    this.desc = desc;
+  }
+
+  // Reveal the description for the task.
+  revealDesc(): void {
+    if (this.desc !== undefined) {
+      this.showDesc = !this.showDesc;
+    }
+  }
+
+  // Toggle checked or not.
+  check(): void {
+    this.checked = !this.checked;
   }
 }

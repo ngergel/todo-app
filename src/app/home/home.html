@@ -3,6 +3,9 @@
     <ion-title>NG Todo App</ion-title>
 
     <ion-buttons slot="primary">
+      <ion-button slot="icon-only" fill="solid" color="primary" (click)="toggleReorder()">
+        <ion-icon name="repeat"></ion-icon>
+      </ion-button>
       <ion-button slot="icon-only" fill="solid" color="primary" (click)="toast('Add Item')">
         <ion-icon name="add"></ion-icon>
       </ion-button>
@@ -11,22 +14,61 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
+  <div *ngIf="tasks.length === 0" class="ion-padding">
     The world is your oyster.
   </div>
   
   <ion-list>
-    <ion-item-sliding>
-      <ion-item>
-        <ion-label (click)="toast('Label')">Item</ion-label>
-        <ion-icon size="large" color="primary" mode="md" name="arrow-dropdown"></ion-icon>
-        <span slot="start" class="checkbox-container">
-          <ion-checkbox (click)="toast('Checkbox')"></ion-checkbox>
-        </span>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="toast('Delete')">Delete</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
+    <!-- Normal task items. -->
+    <div *ngIf="!reorder">
+      <div *ngFor="let task of tasks; let i = index">
+        <ion-item-sliding>
+          <ion-item>
+            <!-- Task checkbox and label. -->
+            <span slot="start" class="checkbox-container">
+              <ion-checkbox checked="{{ task.checked }}" (ionChange)="task.check()"></ion-checkbox>
+            </span>
+            <ion-label (click)="task.revealDesc()">
+              <div *ngIf="task.checked"><s>{{ task.title }}</s></div>
+              <div *ngIf="!task.checked">{{ task.title }}</div>
+            </ion-label>
+
+            <!-- Drop down description icon. -->
+            <ion-icon
+              *ngIf="!(task.desc === undefined) && task.showDesc" (click)="task.revealDesc()"
+              class="task-icon" size="large" color="primary" mode="md" name="arrow-dropdown">
+            </ion-icon>
+            <ion-icon
+              *ngIf="!(task.desc === undefined) && !task.showDesc" (click)="task.revealDesc()"
+              class="task-icon" size="large" color="primary" mode="md" name="arrow-dropup">
+            </ion-icon>
+          </ion-item>
+
+          <!-- Delete option. -->
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="deleteTask(i)">Delete</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+
+        <!-- Task description. -->
+        <div *ngIf="task.showDesc">
+          <h4 class="task-desc">{{ task.title }}</h4>
+          <p class="task-desc">{{ task.desc }}</p>
+          <hr class="task-divider"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reorder mode task items. -->
+    <div *ngIf="reorder">
+      <ion-reorder-group disabled="false" (ionItemReorder)="reorderItems($event)">
+        <ion-reorder *ngFor="let task of tasks">
+          <ion-item>
+            <ion-label>{{ task.title }}</ion-label>
+            <ion-icon name="menu" slot="end"></ion-icon>
+          </ion-item>
+        </ion-reorder>
+      </ion-reorder-group>
+    </div>
   </ion-list>
 </ion-content>

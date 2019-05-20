@@ -1,16 +1,25 @@
 #home-toolbar {
-    --padding-end: 10px;
+    --padding-end: 5px;
     --padding-top: 8px;
     --padding-bottom: 8px;
 
     ion-buttons ion-button {
         height: 2.2rem;
         width: 2.2rem;
-
         --border-radius: 100%;
+        margin-right: 7px;
     }
 }
 
 .checkbox-container {
     position: relative;
+}
+
+.task-desc {
+    padding: 0px 15px;
+}
+
+.task-divider {
+    margin: 0px;
+    background-color: var(--ion-color-light-shade);
 }
