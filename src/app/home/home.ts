@@ -33,7 +33,7 @@ export class HomePage {
 
   // Delete a task from the list of tasks.
   // @params index: Index of the task in the array.
-  deleteTask(index): void {
+  onDelete(index): void {
     this.tasks.splice(index, 1);
   }
 
@@ -49,30 +49,21 @@ export class HomePage {
     this.tasks.splice(event.detail.to, 0, draggedItem);
     event.detail.complete();
   }
+
+  // Update check box.
+  onCheck(event, id) {
+    this.tasks[id].checked = event;
+  }
 }
 
 class Task {
-  showDesc: boolean;
-  checked: boolean;
   title: string;
   desc: string;
+  checked: boolean;
 
   constructor(title: string, desc?: string) {
-    this.showDesc = false;
-    this.checked = false;
     this.title = title;
     this.desc = desc;
-  }
-
-  // Reveal the description for the task.
-  revealDesc(): void {
-    if (this.desc !== undefined) {
-      this.showDesc = !this.showDesc;
-    }
-  }
-
-  // Toggle checked or not.
-  check(): void {
-    this.checked = !this.checked;
+    this.checked = false;
   }
 }
