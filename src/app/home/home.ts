@@ -53,6 +53,7 @@ export class HomePage {
   // Update check box.
   onCheck(event, id) {
     this.tasks[id].checked = event;
+    this.toast('From page component: ' + this.tasks[id].checked);
   }
 }
 

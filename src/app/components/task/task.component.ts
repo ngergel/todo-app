@@ -13,15 +13,17 @@ export class TaskComponent implements OnInit {
 
   // Delete event.
   @Output() deleted = new EventEmitter();
-  @Output() checkedBox = new EventEmitter<boolean>();
+  @Output() checkedBox = new EventEmitter<boolean>(true);
 
   // Task variables.
   showDesc: boolean;
   hideDesc: boolean;
+  isChecked: boolean;
 
   constructor() {
     this.showDesc = false;
     this.hideDesc = false;
+    Promise.resolve(null).then(() => this.isChecked = this.checked);
   }
 
   ngOnInit() {
@@ -37,8 +39,8 @@ export class TaskComponent implements OnInit {
 
   // Toggle checked or not.
   check(): void {
-    this.checked = !this.checked;
-    this.checkedBox.emit(this.checked);
+    this.isChecked = !this.isChecked;
+    this.checkedBox.emit(this.isChecked);
   }
 
   // Emit an event indicating that this task was deleted.
