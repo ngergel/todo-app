@@ -21,10 +21,7 @@
     <!-- Normal task items. -->
     <div *ngIf="!reorder">
       <div *ngFor="let task of tasks; let i = index">
-        <task
-          title="{{ task.title }}" desc="{{ task.desc }}" (deleted)="onDelete(i)"
-          checked="{{ task.checked }}" (checkedBox)="onCheck($event, i)">
-        </task>
+        <task (deleted)="onDelete(i)"></task>
       </div>
     </div>
 

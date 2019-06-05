@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { TaskComponent } from '../components/task/task.component';
 
 @Component({
   selector: 'app-home',
@@ -7,15 +8,15 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['home.scss'],
 })
 export class HomePage {
-  tasks: Task[];
+  tasks: TaskComponent[];
   reorder: boolean;
 
-  constructor(public toastCtrl: ToastController) {
+  constructor(public toastCtrl: ToastController, public task: TaskComponent) {
     this.tasks = [
-      new Task('Task 1', 'Really cool description.'),
-      new Task('Task 2'),
-      new Task('Task 3 really really really long title', 'Short description.'),
-      new Task('Task 4', 'Really really really really long and super descriptive description.')
+      new TaskComponent('Task 1', false, 'Really cool description.'),
+      new TaskComponent('Task 2', false),
+      new TaskComponent('Task 3 really really really long title', false, 'Short description.'),
+      new TaskComponent('Task 4', false, 'Really really really really long and super descriptive description.')
     ];
 
     this.reorder = false;
@@ -48,23 +49,5 @@ export class HomePage {
     let draggedItem = this.tasks.splice(event.detail.from, 1)[0];
     this.tasks.splice(event.detail.to, 0, draggedItem);
     event.detail.complete();
-  }
-
-  // Update check box.
-  onCheck(event, id) {
-    this.tasks[id].checked = event;
-    this.toast('From page component: ' + this.tasks[id].checked);
-  }
-}
-
-class Task {
-  title: string;
-  desc: string;
-  checked: boolean;
-
-  constructor(title: string, desc?: string) {
-    this.title = title;
-    this.desc = desc;
-    this.checked = false;
   }
 }

@@ -2,11 +2,11 @@
   <ion-item>
     <!-- Task checkbox and label. -->
     <span slot="start" class="checkbox-container">
-      <ion-checkbox checked="{{ isChecked }}" (ionChange)="check()"></ion-checkbox>
+      <ion-checkbox checked="{{ checked }}" (ionChange)="check()"></ion-checkbox>
     </span>
     <ion-label (click)="revealDesc()">
-      <div *ngIf="isChecked"><s>{{ title }}</s></div>
-      <div *ngIf="!isChecked">{{ title }}</div>
+      <div *ngIf="checked"><s>{{ title }}</s></div>
+      <div *ngIf="!checked">{{ title }}</div>
     </ion-label>
 
     <!-- Drop down description icon. -->
