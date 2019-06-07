@@ -21,7 +21,7 @@
     <!-- Normal task items. -->
     <div *ngIf="!reorder">
       <div *ngFor="let task of tasks; let i = index">
-        <task (deleted)="onDelete(i)"></task>
+        <task [data]="task" (deleted)="onDelete(i)"></task>
       </div>
     </div>
 

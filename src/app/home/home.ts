@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { TaskComponent } from '../components/task/task.component';
 
 @Component({
   selector: 'app-home',
@@ -8,17 +7,18 @@ import { TaskComponent } from '../components/task/task.component';
   styleUrls: ['home.scss'],
 })
 export class HomePage {
-  tasks: TaskComponent[];
+  tasks: {title: string, checked: boolean, desc?: string}[];
   reorder: boolean;
 
-  constructor(public toastCtrl: ToastController, public task: TaskComponent) {
+  constructor(public toastCtrl: ToastController) {
     this.tasks = [
-      new TaskComponent('Task 1', false, 'Really cool description.'),
-      new TaskComponent('Task 2', false),
-      new TaskComponent('Task 3 really really really long title', false, 'Short description.'),
-      new TaskComponent('Task 4', false, 'Really really really really long and super descriptive description.')
+      {title: 'Task 1', checked: false, desc: 'Really cool description.'},
+      {title: 'Task 2', checked: false},
+      {title: 'Task 3: Long title', checked: false, desc: 'Really cool and long description that is of a significant length.'},
+      {title: 'Task 4: Significantly longer title that is way too long to be honest.', checked: false, desc: 'Really cool description my guy.'},
+      {title: 'Task 5', checked: true, desc: 'Starts out clicked.'}
     ];
-
+    
     this.reorder = false;
   }
 

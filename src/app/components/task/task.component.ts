@@ -6,29 +6,24 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
+  // Input data.
+  @Input() data: {title: string, checked: boolean, desc?: string};
+
   // Delete event.
   @Output() deleted = new EventEmitter();
 
   // Task variables.
   showDesc: boolean;
   hideDesc: boolean;
-  checked: boolean;
-
-  title: string;
-  desc: string;
   
-  constructor(title: string, checked: boolean, desc?: string, ) {
+  constructor() {
     this.showDesc = false;
     this.hideDesc = false;
-    this.title = title;
-    this.checked = checked;
-    this.desc = desc;
   }
 
   ngOnInit() {
-    // Handle no title/description.
-    if (this.title === undefined) this.title = "No title";
-    if (this.desc === undefined || this.desc.length === 0) this.hideDesc = true;
+    // Handle no description.
+    if (this.data.desc === undefined || this.data.desc.length === 0) this.hideDesc = true;
   }
 
   // Reveal the description for the task.
@@ -38,7 +33,7 @@ export class TaskComponent implements OnInit {
 
   // Toggle checked or not.
   check(): void {
-    this.checked = !this.checked;
+    this.data.checked = !this.data.checked;
   }
 
   // Emit an event indicating that this task was deleted.
