@@ -6,7 +6,10 @@
       <ion-button slot="icon-only" fill="solid" color="primary" (click)="toggleReorder()">
         <ion-icon name="repeat"></ion-icon>
       </ion-button>
-      <ion-button slot="icon-only" fill="solid" color="primary" (click)="toast('Add Item')">
+      <ion-button
+        slot="icon-only" fill="solid" color="primary"
+        routerLink="/add-task" routerDirection="forward">
+        
         <ion-icon name="add"></ion-icon>
       </ion-button>
     </ion-buttons>

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add a Task</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="taskForm" (ngSubmit)="createTask()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">
+          Title
+          <span style="color: red;">*</span>
+        </ion-label>
+        <ion-input
+          maxlength="25" formControlName="title" required
+          autocapitalize="on" clearInput="true" type="text">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Description</ion-label>
+        <ion-textarea
+          formControlName="desc" autoGrow="true"
+          autocapitalize="sentences" type="text">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+    <div class="add-task-button">
+      <ion-button
+        [disabled]="taskForm.invalid" expand="block"
+        type="submit">
+        Submit
+      </ion-button>
+    </div>
+  </form>
+
+  <div class="add-task-button">
+    <ion-button
+      expand="block" class="col" color="danger"
+      routerLink="/home" routerDirection="back">
+      Cancel
+    </ion-button>
+  </div>
+</ion-content>

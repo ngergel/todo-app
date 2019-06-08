@@ -3,8 +3,8 @@ import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.html',
-  styleUrls: ['home.scss'],
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
 })
 export class HomePage {
   tasks: {title: string, checked: boolean, desc?: string}[];
@@ -18,7 +18,7 @@ export class HomePage {
       {title: 'Task 4: Significantly longer title that is way too long to be honest.', checked: false, desc: 'Really cool description my guy.'},
       {title: 'Task 5', checked: true, desc: 'Starts out clicked.'}
     ];
-    
+
     this.reorder = false;
   }
 
