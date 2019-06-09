@@ -27,6 +27,8 @@ export class AddTaskPage implements OnInit {
     // Cancel if form is invalid.
     if (this.taskForm.invalid) return;
 
-    console.log(this.taskForm.value);
+    this.router.navigateByUrl("/home", {
+      state: {task: this.taskForm.value}
+    });
   }
 }

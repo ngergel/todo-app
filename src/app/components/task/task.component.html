@@ -4,7 +4,7 @@
     <span slot="start" class="checkbox-container">
       <ion-checkbox checked="{{ data.checked }}" (ionChange)="check()"></ion-checkbox>
     </span>
-    <ion-label (click)="revealDesc()">
+    <ion-label text-wrap (click)="revealDesc()">
       <div *ngIf="data.checked"><s>{{ data.title }}</s></div>
       <div *ngIf="!data.checked">{{ data.title }}</div>
     </ion-label>

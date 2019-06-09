@@ -13,16 +13,13 @@
           <span style="color: red;">*</span>
         </ion-label>
         <ion-input
-          maxlength="25" formControlName="title" required
-          autocapitalize="on" clearInput="true" type="text">
+          maxlength="55" formControlName="title" required
+          clearInput="true" type="text">
         </ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Description</ion-label>
-        <ion-textarea
-          formControlName="desc" autoGrow="true"
-          autocapitalize="sentences" type="text">
-        </ion-textarea>
+        <ion-textarea formControlName="desc" autoGrow="true" type="text"></ion-textarea>
       </ion-item>
     </ion-list>
     <div class="add-task-button">

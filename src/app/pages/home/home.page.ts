@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -10,26 +10,32 @@ export class HomePage {
   tasks: {title: string, checked: boolean, desc?: string}[];
   reorder: boolean;
 
-  constructor(public toastCtrl: ToastController) {
-    this.tasks = [
-      {title: 'Task 1', checked: false, desc: 'Really cool description.'},
-      {title: 'Task 2', checked: false},
-      {title: 'Task 3: Long title', checked: false, desc: 'Really cool and long description that is of a significant length.'},
-      {title: 'Task 4: Significantly longer title that is way too long to be honest.', checked: false, desc: 'Really cool description my guy.'},
-      {title: 'Task 5', checked: true, desc: 'Starts out clicked.'}
-    ];
+  constructor(private storage: Storage) {
+    // Try and read in tasks from storage.
+    this.tasks = [];
+    storage.get('data').then((res) => {
+      if (res.length > 0) this.tasks = JSON.parse(res);
+    });
 
     this.reorder = false;
   }
 
-  // Toast popup for testing.
-  // @params msg: Message to write in the toast.
-  async toast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
+  ionViewDidEnter() {
+    // Add new task if it exists.
+    if (history.state.task != undefined) {
+      this.tasks.push({
+        title: history.state.task.title,
+        checked: false,
+        desc: history.state.task.desc
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    // Save tasks to storage.
+    if (this.tasks.length > 0) {
+      this.storage.set('data', JSON.stringify(this.tasks));
+    }
   }
 
   // Delete a task from the list of tasks.
