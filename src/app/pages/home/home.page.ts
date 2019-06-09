@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import * as quoteData from '../../../assets/quotes.json';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +8,15 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  tasks: {title: string, checked: boolean, desc?: string}[];
+  tasks: {title: string, checked: boolean, desc?: string}[] = [];
   reorder: boolean;
+  quote: string;
 
   constructor(private storage: Storage) {
+    // Set the quote.
+    this.quote = quoteData.quotes[Math.floor(Math.random() * quoteData.quotes.length)];
+
     // Try and read in tasks from storage.
-    this.tasks = [];
     storage.get('data').then((res) => {
       if (res.length > 0) this.tasks = JSON.parse(res);
     });
@@ -28,6 +32,11 @@ export class HomePage {
         checked: false,
         desc: history.state.task.desc
       });
+    }
+
+    // Save tasks to storage.
+    if (this.tasks.length > 0) {
+      this.storage.set('data', JSON.stringify(this.tasks));
     }
   }
 

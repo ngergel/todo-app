@@ -18,8 +18,9 @@
 
 <ion-content>
   <div *ngIf="tasks.length === 0" class="ion-padding">
-    The world is your oyster.
+    {{ quote }}
   </div>
+
   <ion-list>
     <!-- Normal task items. -->
     <div *ngIf="!reorder">
