@@ -34,23 +34,18 @@ export class HomePage {
       });
     }
 
-    // Save tasks to storage.
-    if (this.tasks.length > 0) {
-      this.storage.set('data', JSON.stringify(this.tasks));
-    }
+    this.saveTasks();
   }
 
   ngOnDestroy() {
-    // Save tasks to storage.
-    if (this.tasks.length > 0) {
-      this.storage.set('data', JSON.stringify(this.tasks));
-    }
+    this.saveTasks();
   }
 
   // Delete a task from the list of tasks.
   // @params index: Index of the task in the array.
   onDelete(index): void {
     this.tasks.splice(index, 1);
+    this.saveTasks();
   }
 
   // Toggle reorder tasks mode.
@@ -64,5 +59,12 @@ export class HomePage {
     let draggedItem = this.tasks.splice(event.detail.from, 1)[0];
     this.tasks.splice(event.detail.to, 0, draggedItem);
     event.detail.complete();
+  }
+
+  // Save tasks to storage.
+  saveTasks() {
+    if (this.tasks.length > 0) {
+      this.storage.set('data', JSON.stringify(this.tasks));
+    }
   }
 }
