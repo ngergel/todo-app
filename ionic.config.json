@@ -1,5 +1,7 @@
 {
   "name": "ng-todo-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -63,8 +63,6 @@ export class HomePage {
 
   // Save tasks to storage.
   saveTasks() {
-    if (this.tasks.length > 0) {
-      this.storage.set('data', JSON.stringify(this.tasks));
-    }
+    this.storage.set('data', JSON.stringify(this.tasks));
   }
 }
